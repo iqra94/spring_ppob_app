@@ -31,3 +31,58 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### ini w
+# src
+
+# step buat api
+#1 01:02:47 - Register User API
+#1 buat WebResponseA, RegisterUserRequestA, UserRepositoryA, UserServiceA, UserControllerA, ErrorControllerA, UserControllerTest
+
+#2 01:29:54 - Login User API
+#2 buat LoginUserRequestB, TokenResponseB, ValidationServiceB, AuthServiceB, AuthControllerB, AuthControllerTest
+#2 edit UserServiceA[]
+
+#3 01:46:24 - Get User API
+#3 buat UserResponseC, UserArgumentResolverC, WebConfigurationC
+#3 edit UserControllerA[+functionGet], UserServiceA[+functionGet], UserRepositoryA[functionFindFirstByToken], UserControllerTest[+functionGetUserUnauthorized, +functionGetUserUnauthorizedTokenNotSend, +functionGetUserSuccess, +functionGetUserTokenExpired]
+
+#4 02:04:59 - Update User API
+#4 buat UpdateUserRequestD
+#4 edit UserServiceA[+functionUpdate], UserControllerA[+functionUpdate], UserControllerTest[+functionUpdateUserUnauthorized, +functionUpdateUserSuccess]
+
+#5 02:18:44 - Logout User API
+#5 edit AuthControllerB[+functionLogout], AuthServiceB[+functionLogout], AuthControllerTest[+functionLogoutFailed, functionLogoutSuccess]
+
+#6 02:24:39 - Create Contact API
+#6 buat CreateContactRequestF, ContactResponseF, ContactRepositoryF, ContactServiceF, ContactControllerF, ContactControllerTest
+
+#7 02:39:00 - Get Contact API
+#7 edit ContactRepositoryF[+function_findFirstByUserAndId], ContactServiceF[+function_get], ContactControllerF[+function_get], ContactControllerTest[+getContactNotFound, +getContactSuccess]
+
+#8 02:46:15 - Update Contact API
+#8 buat UpdateContactRequestG
+#8 edit ContactServiceF[+function_update], ContactControllerF[+function_update], ContactControllerTest[+updateContactBadRequest, +updateContactSuccess]
+
+#9 02:53:38 - Remove Contact API
+#8 edit ContactServiceF[+function_delete], ContactControllerF[+function_delete], ContactControllerTest[+deleteContactNotFound, +deleteContactSuccess]
+
+#10 02:57:09 - Search Contact API
+# buat SearchContactRequestH, PagingResponseH
+# edit ContactRepositoryF[+extend_JpaSpesification], ContactServiceF[+function_search], ContactControllerF[+function_search], ContactControllerTest[+searchNotFound, +searchSuccess], WebResponseA[field PagingResponseH paging]
+
+#11 03:18:11 - Create Address API
+# buat CreateAddressRequestI, AddressResponseI, AddressRepositoryI, AddressServiceI, AddressControllerI, AddressControllerTest
+
+#12 03:32:10 - Get Address API
+#12 edit AddressRepositoryI[+function_findFirstByContactAndId], AddressServiceI[+function_get], AddressControllerI[+function_get], AddressControllerTest[+getAddressNotFound, +getAddressSuccess]
+
+#12 03:39:00 - Update Address API
+#12 buat UpdateAddressRequestJ
+#12 edit AddressServiceI[+function_update], AddressControllerI[+function_update], AddressControllerTest[+updateAddressBadRequest, +updateAddressSuccess]
+
+#13 03:44:32 - Remove Address API
+#13 edit AddressServiceI[+function_delete], AddressControllerI[+function_delete], AddressControllerTest[+deleteAddressNotFound, +deleteAddressSuccess]
+
+#14 03:48:19 - List Address API
+#13 edit AddressRepositoryI[+function_findAllByContact], AddressControllerI[+function_list], AddressServiceI[+function_list], AddressControllerTest[+listAddressNotFound, +listAddressSuccess]
