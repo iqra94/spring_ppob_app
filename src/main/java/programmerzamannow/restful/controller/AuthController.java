@@ -29,7 +29,7 @@ public class AuthController {
   private UserRepository userRepository;
 
   @Autowired
-  private CustomeUserServiceImpl customerUserServiceImpl;
+  private CustomeUserServiceImpl customeUserServiceImpl;
 
   @Autowired
   private PasswordEncoder passwordEncoder;
@@ -62,6 +62,7 @@ public class AuthController {
     SecurityContextHolder.getContext().setAuthentication(authentication);
 
     String token = jwtProvider.generateToken(authentication);
+
     AuthResponse authResponse = new AuthResponse();
     authResponse.setJwt(token);
     authResponse.setMessage("signup success");
@@ -78,6 +79,7 @@ public class AuthController {
     SecurityContextHolder.getContext().setAuthentication(authentication);
 
     String token = jwtProvider.generateToken(authentication);
+
     AuthResponse authResponse = new AuthResponse();
     authResponse.setJwt(token);
     authResponse.setMessage("signin success");
@@ -86,7 +88,7 @@ public class AuthController {
   }
 
   private Authentication authenticate(String username, String password) {
-    UserDetails userDetails = customerUserServiceImpl.loadUserByUsername(username);
+    UserDetails userDetails = customeUserServiceImpl.loadUserByUsername(username);
 
     if (userDetails == null) {
       throw new BadCredentialsException("invalid username");

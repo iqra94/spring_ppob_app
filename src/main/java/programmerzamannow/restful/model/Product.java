@@ -33,8 +33,8 @@ public class Product {
   @Column(name = "discounted_price")
   private int discountedPrice;
 
-  @Column(name = "discount_price")
-  private int discountPrice;
+  @Column(name = "discount_percent")
+  private int discountPercent;
 
   @Column(name = "num_ratings")
   private int numRatings;
