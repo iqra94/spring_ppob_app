@@ -6,21 +6,21 @@ import programmerzamannow.restful.exception.OrderException;
 import programmerzamannow.restful.model.Address;
 import programmerzamannow.restful.model.Order;
 import programmerzamannow.restful.model.User;
-//import programmerzamannow.restful.repository.CartRepository;
+import programmerzamannow.restful.repository.CartRepository;
 
 import java.util.List;
 
 @Service
 public class OrderServiceImpl implements OrderService{
 
+  @Autowired
+  private CartRepository cartRepository;
+
 //  @Autowired
-//  private CartRepository cartRepository;
-//
+  private CartItemService cartItemService;
+
 //  @Autowired
-//  private CartService cartService;
-//
-//  @Autowired
-//  private ProductService productService;
+  private ProductService productService;
 
   @Override
   public List<Order> userOrderHistory(Long orderId) {
