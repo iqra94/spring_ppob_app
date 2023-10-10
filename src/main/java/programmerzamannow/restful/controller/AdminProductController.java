@@ -16,7 +16,7 @@ import java.util.List;
 @RequestMapping("/api/admin/products")
 public class AdminProductController {
 
-//  @Autowired
+  @Autowired
   private ProductService productService;
 
   @PostMapping("/")

@@ -19,7 +19,7 @@ public class ReviewServiceImpl implements ReviewService {
   @Autowired
   private ReviewRepository reviewRepository;
 
-//  @Autowired
+  @Autowired
   private ProductService productService;
 
   @Autowired

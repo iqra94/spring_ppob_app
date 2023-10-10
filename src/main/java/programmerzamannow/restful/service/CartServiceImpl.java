@@ -21,7 +21,7 @@ public class CartServiceImpl implements CartService{
   @Autowired
   private CartItemService cartItemService ;
 
-//  @Autowired
+  @Autowired
   private ProductService productService ;
 
   @Override

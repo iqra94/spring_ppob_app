@@ -1,10 +1,12 @@
 package programmerzamannow.restful.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 import programmerzamannow.restful.exception.ProductException;
 import programmerzamannow.restful.model.Category;
 import programmerzamannow.restful.model.Product;
@@ -17,7 +19,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class ProductServiceImpl implements ProductService{
+@Slf4j
+@Service
+public class ProductServiceImpl implements ProductService {
 
   @Autowired
   private ProductRepository productRepository;
@@ -51,7 +55,7 @@ public class ProductServiceImpl implements ProductService{
       secondLevel = categoryRepository.save(secondLevelCategory);
     }
 
-    Category thridLevel = categoryRepository.findByNameAndParent(req.getThirdLevelCategory(), topLevel.getName());
+    Category thridLevel = categoryRepository.findByNameAndParent(req.getThirdLevelCategory(), secondLevel.getName());
 
     if (thridLevel == null) {
       Category thridLevelCategory = new Category();

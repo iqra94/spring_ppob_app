@@ -18,7 +18,7 @@ public class RatingServiceImpl implements RatingService {
   @Autowired
   private RatingRepository ratingRepository;
 
-//  @Autowired
+  @Autowired
   private ProductService productService;
 
   @Override

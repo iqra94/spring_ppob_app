@@ -15,15 +15,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import programmerzamannow.restful.config.JwtProvider;
 import programmerzamannow.restful.exception.UserException;
+import programmerzamannow.restful.model.Cart;
 import programmerzamannow.restful.model.User;
 import programmerzamannow.restful.repository.UserRepository;
 import programmerzamannow.restful.request.LoginRequest;
 import programmerzamannow.restful.response.AuthResponse;
+import programmerzamannow.restful.service.CartService;
 import programmerzamannow.restful.service.CustomeUserServiceImpl;
 
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
+
+  @Autowired
+  private CartService cartService;
 
   @Autowired
   private UserRepository userRepository;
@@ -57,6 +62,7 @@ public class AuthController {
     createdUser.setLastName(lastName);
 
     User savedUser = userRepository.save(createdUser);
+    Cart cart = cartService.createCart(savedUser);
 
     Authentication authentication = new UsernamePasswordAuthenticationToken(savedUser.getEmail(), savedUser.getPassword());
     SecurityContextHolder.getContext().setAuthentication(authentication);
