@@ -1,4 +1,4 @@
-package programmerzamannow.restful.config;
+package programmerzamannow.restful.latihan.config;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.context.annotation.Bean;

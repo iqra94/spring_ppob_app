@@ -1,4 +1,4 @@
-package programmerzamannow.restful.config;
+package programmerzamannow.restful.latihan.config;
 
 public class JwtConstant {
 

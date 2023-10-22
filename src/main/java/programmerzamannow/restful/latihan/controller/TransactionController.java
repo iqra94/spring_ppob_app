@@ -1,44 +1,34 @@
 package programmerzamannow.restful.latihan.controller;
 
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.Pattern;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import programmerzamannow.restful.config.JwtProvider;
+import programmerzamannow.restful.latihan.config.JwtProvider;
 import programmerzamannow.restful.latihan.entity.Balance;
 import programmerzamannow.restful.latihan.entity.Membership;
 import programmerzamannow.restful.latihan.entity.Service;
-import programmerzamannow.restful.latihan.entity.Transaction;
 import programmerzamannow.restful.latihan.repository.*;
 import programmerzamannow.restful.latihan.request.ServiceReq;
 import programmerzamannow.restful.latihan.request.TopupReq;
 import programmerzamannow.restful.latihan.response.ApiRes;
 import programmerzamannow.restful.latihan.response.TransactionResponse;
-import programmerzamannow.restful.latihan.service.TransactionType;
-import programmerzamannow.restful.latihan.service.ValidationService;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
-@Slf4j
 @RestController
 @RequestMapping("/test")
 public class TransactionController {
 
   @Autowired
   private MembershipRepository membershipRepository;
-  @Autowired
-  private BalanceRepository balanceRepository;
+//  @Autowired
+//  private BalanceRepository balanceRepository;
   @Autowired
   private ServiceRepository serviceRepository;
   @Autowired
   private TransactionRepository transactionRepository;
-
   @Autowired
   private JwtProvider jwtProvider;
 
@@ -60,7 +50,7 @@ public class TransactionController {
   }
 
   @PostMapping("/topup")
-  public ResponseEntity<?> serviceFindAll(@RequestBody TopupReq amount, @RequestHeader("Authorization") String jwt) {
+  public ResponseEntity<?> topUp(@RequestBody TopupReq amount, @RequestHeader("Authorization") String jwt) {
 
     String emailJwt = jwtProvider.getEmailFromToken(jwt);
     Membership user = membershipRepository.findByEmail(emailJwt);

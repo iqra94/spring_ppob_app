@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import programmerzamannow.restful.config.JwtProvider;
+import programmerzamannow.restful.latihan.config.JwtProvider;
 import programmerzamannow.restful.latihan.entity.Membership;
 import programmerzamannow.restful.latihan.repository.BannerRepository;
 import programmerzamannow.restful.latihan.repository.MembershipRepository;
@@ -21,7 +21,6 @@ public class InformationController {
   private BannerRepository bannerRepository;
   @Autowired
   private ServiceRepository serviceRepository;
-
   @Autowired
   private JwtProvider jwtProvider;
 
@@ -42,7 +41,7 @@ public class InformationController {
     );
   }
 
-  @GetMapping("/service")
+  @GetMapping("/services")
   public ResponseEntity<?> serviceFindAll(@RequestHeader("Authorization") String jwt) {
 
     String emailJwt = jwtProvider.getEmailFromToken(jwt);

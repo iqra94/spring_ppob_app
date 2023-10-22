@@ -14,34 +14,28 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import programmerzamannow.restful.config.JwtProvider;
+import programmerzamannow.restful.latihan.config.JwtProvider;
 import programmerzamannow.restful.latihan.entity.Membership;
 import programmerzamannow.restful.latihan.repository.MembershipRepository;
 import programmerzamannow.restful.latihan.request.LoginReq;
 import programmerzamannow.restful.latihan.request.ProfileReq;
 import programmerzamannow.restful.latihan.request.RegistrationReq;
 import programmerzamannow.restful.latihan.response.ApiRes;
-import programmerzamannow.restful.latihan.response.ProfileRes;
 import programmerzamannow.restful.latihan.service.CustomUserServiceImpl;
 import programmerzamannow.restful.latihan.service.ValidationService;
-import programmerzamannow.restful.repository.UserRepository;
-import programmerzamannow.restful.service.CustomeUserServiceImpl;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 @RestController
 @RequestMapping("/test")
-public class TestController {
-
-  @Autowired
-  private UserRepository userRepository;
+public class MembershipController {
 
   @Autowired
   private MembershipRepository membershipRepository;
+
   @Autowired
   private CustomUserServiceImpl customUserServiceImpl;
 
@@ -57,8 +51,7 @@ public class TestController {
   @Autowired
   private ValidationService validationService;
 
-//infromation-module
-  @PostMapping("/signup")
+  @PostMapping("/registration")
   public ResponseEntity<ApiRes> createUserHandler(@Valid @RequestBody RegistrationReq user, BindingResult bindingResult) {
     System.out.println(user.getFirstName());
     System.out.println(user.getLastName());
@@ -66,7 +59,6 @@ public class TestController {
     ApiRes authResponse = new ApiRes();
 
     if (bindingResult.hasErrors()) {
-      // Handle validation errors here
       List<FieldError> errors = bindingResult.getFieldErrors();
       StringBuilder errorMessages = new StringBuilder();
       for (FieldError error : errors) {
@@ -77,11 +69,6 @@ public class TestController {
       }
       return new ResponseEntity<ApiRes>(authResponse, HttpStatus.BAD_REQUEST);
     }
-
-    String email = user.getEmail();
-    String password = user.getPassword();
-    String firstName = user.getFirstName();
-    String lastName = user.getLastName();
 
     Membership createdUser = new Membership();
     createdUser.setFirstName(user.getFirstName());
@@ -94,7 +81,7 @@ public class TestController {
     return new ResponseEntity<ApiRes>(new ApiRes(0, "Registrasi berhasil silahkan login", null), HttpStatus.OK);
   }
 
-  @PostMapping("/signin")
+  @PostMapping("/login")
   public ResponseEntity<ApiRes> loginUserHandler(@Valid @RequestBody LoginReq loginRequest, BindingResult bindingResult) {
     ApiRes authResponse = new ApiRes();
 
@@ -111,7 +98,6 @@ public class TestController {
       return new ResponseEntity<ApiRes>(authResponse, HttpStatus.BAD_REQUEST);
     }
 
-//    UserDetails userDetails = customUserServiceImpl.loadUserByUsername(loginRequest.getEmail());
     Membership userMember = membershipRepository.findByEmail(loginRequest.getEmail());
 
     if (userMember != null) {
@@ -131,11 +117,7 @@ public class TestController {
     Authentication authentication = authenticate(loginRequest);
     SecurityContextHolder.getContext().setAuthentication(authentication);
 
-//    Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
-
     String token = jwtProvider.generateToken(authentication);
-//    String emailFromToken = jwtProvider.getEmailFromToken(token);
-//    System.out.println(emailFromToken);
 
     Map<String, String> tokenDua = Map.of("token", jwtProvider.generateToken(authentication));
 
@@ -185,7 +167,7 @@ public class TestController {
             new ApiRes(102, "Format Image tidak sesuai", null)
           );
         }
-        String filePath = "/home/agera94/Pictures/" + File.separator + fileName;
+        String filePath = "/home/agera94/Pictures" + File.separator + fileName;
         file.transferTo(new File(filePath));
 
         user.setProfileImage(filePath);
@@ -206,33 +188,6 @@ public class TestController {
     );
 
   }
-//    String contentType = file.getContentType();
-//    if (contentType != null && (contentType.equals("image/jpeg") || contentType.equals("image/png"))) {
-//      // Process the file, e.g., save it to the server or perform some operations
-//      // Return a success response
-//      return ResponseEntity.ok("File uploaded successfully.");
-//    } else {
-//      // Return an error response if the format is not supported
-//      return ResponseEntity.badRequest().body("Unsupported file format. Please upload a JPEG or PNG image.");
-//    }
-
-//    if (file.isEmpty()) {
-//      return "Please select a file to upload.";
-//    }
-//
-//    try {
-//      String fileName = file.getOriginalFilename();
-//      String fileExtension = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
-//      if (!fileExtension.equals("jpg") && !fileExtension.equals("png")) {
-//        return "Invalid file type. Only JPEG and PNG files are allowed.";
-//      }
-//      String filePath = "/home/agera94/Pictures/" + File.separator + fileName;
-//      file.transferTo(new File(filePath));
-//      return "File uploaded successfully!";
-//    } catch (IOException e) {
-//      return "File upload failed: " + e.getMessage();
-//    }
-
 
   @GetMapping("/profile")
   public ResponseEntity<?> profileGet(@RequestHeader("Authorization") String jwt) {
@@ -250,12 +205,6 @@ public class TestController {
       new ApiRes(108, "Token tidak valid atau kadaluwarsa", null)
     );
   }
-
-//  transaction-module
-//  @GetMapping("/balance")
-//  @PostMapping("/topup")
-//  @PostMapping("/transaction")
-//  @GetMapping("/transaction/history")
 
 
 }
